@@ -1,8 +1,32 @@
 import { Search } from "lucide-react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import useConversation from "../../zustand/useConversation";
+import useGetConversations from "../../hooks/useGetConversations";
+
 
 const SearchInput = () => {
+	const [search, setSearch] = useState("");
+	const {setSelectedConversation} = useConversation();
+	const { conversations }= useGetConversations();
+
+
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
+		if (!search) return ;
+		if (search.length < 2) {
+			return toast.error ("Search term must me at least 2 characters long")
+		}
+
+		const conversation = conversations.find((c:ConversationType)=>c.fullName.toLowerCase().includes(search.toLowerCase()))
+
+		if (conversation) {
+			setSelectedConversation(conversation);
+			setSearch("");
+		} else toast.error("No such user found")
+	}
 	return (
-		<form className='flex items-center gap-2'>
+		<form className='flex items-center gap-2' onSubmit={handleSubmit}>
 			<input
 				type='text'
 				placeholder='Search…'
