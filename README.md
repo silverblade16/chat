@@ -5,12 +5,6 @@ host:  https://chat-60n0.onrender.com
 
 local: 
 
-
-backend: /chat/npm run dev
-
-
-
-
-
-
-frontend: /chat/frontend/npm run dev
+npm install
+npm run build
+npm start
