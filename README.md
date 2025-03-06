@@ -6,5 +6,7 @@ host:  https://chat-60n0.onrender.com
 local: 
 
 npm install
+
 npm run build
+
 npm start
